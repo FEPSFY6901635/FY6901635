@@ -127,7 +127,7 @@ li a:hover:not(.active) {
 
 
 
-
+<body>
 
 
 
@@ -203,12 +203,20 @@ document.getElementById("date&time").innerHTML = d;
  
 <div class="w3-container">
 
+
+
 <div id="abstract_id"></div>
 
 <h1><b> Abstract</b></h1>
 
+<p id="Introduction_InText">
+
 This article tests if computer simulation is useful in the industry today, and questions why it is integral to engineers, scientists, and programmers. This article dives into the use of MATLAB to simulate and calculate the efficiency of an internal combustion engine, simulating virtual car crashes, the use of real-world data to help these algorithms, and the use of this data in other industries such as game development.
+
+</p>
+
 <hr>
+
 </div>
 
   
@@ -217,9 +225,13 @@ This article tests if computer simulation is useful in the industry today, and q
   
   <div class="w3-container">
   
+  
+  
  <div id="article_id"></div>
 
+
 <h1><b> Article</b></h1>
+
 <p>
 Computer simulation has many uses in the vehicular industry today, including modelling vehicles physically to reduce on costs, simulating and preventing car crashes, and even for entertainment purposes in video games. The shipping industry has used computer simulation to enhance the efficiency of transportation of cargo and passengers, keeping major companies around the world sustainable and making ship operations still viable around the world today. “The shipping industry has been facing a number of challenges due to the unprecedented rise of fuel prices, the increasing international concern and released regulations for limiting ship emissions and their impact on the environment as well as the reduction of charter rates.”  Reproducing engines digitally has been used to combat the inefficiencies in marine four stroke diesel engines. The main inefficiencies are incomplete combustion and heat loss, and while waste heat recovery systems are already in use, prototyping a better engine is expensive due to manufacturing processes and material cost. MATLAB and SIMULINK has been used to physically model these marine engines which gives better insight on how they work, as taking data from a real engine is hard without influencing the actual engines performance. Both MVEN (Cycle mean value engine models) and 0-D (zero-dimensional models) have advantages and disadvantages: “Both MVEMs and 0-D models offer specific trade-offs in terms of accuracy, computational time, and required input/provided output.”. Combining these however, reduces these inaccuracies and allows for a model to give a more useful analysis on an engine. This combined MV-0D model allows for a better balance between accuracy and modelling time, which allows this to accurately give data on an engine’s performance, even in different conditions or by tweaking the parameters to create a theoretically better engine. Using MATLAB and SIMULINK to combine these techniques allows for shipping companies to test their engines in a much more cost-effective way, which will help them improve their engines in the future and maintain the sustainability and efficiency of ship operations around the world today.
 </p>
@@ -234,6 +246,8 @@ Simulation of existing cars in a computer-generated environment is used by many 
 <p>
 In conclusion, the use of computers has been extremely important to the vehicular industry today, allowing for the extensive testing of vehicles while reducing time and resources spent, and also developing new markets, like recreational use in video games, while also training new drivers and assessing risks on the road in a controlled environment.
 </p>
+
+
 <hr>
   </div>
   
@@ -274,17 +288,118 @@ In conclusion, the use of computers has been extremely important to the vehicula
   </div>
   
   
-  
+ 
   
   
 </div>
 
 
+<hr>
+
+<div class="center">
+
+
+<!-- //////////////////////////////////////////////////////////////////////////////// -->
+  <!-- ////////////////////////////// Adding last update ////////////////////////////// -->
+  <!-- //////////////////////////////////////////////////////////////////////////////// -->
+    <!-- Last commit time display -->
+<div id="last-updated">Loading last update time...</div>
+<!-- Verify Button -->
+<button onclick="verifyLastUpdatedTime()" style="display: block; margin: 10px auto; padding: 8px 16px;">
+    Verify Last Modified Time
+</button>
+<script>
+    async function getLastUpdatedTime() {
+        const username = 'FEPSFY6901635';
+        const repo = 'FY6901635';
+       
+        const url = `https://api.github.com/repos/${username}/${repo}/commits`;
+        try {
+            const response = await fetch(url, {
+                method: 'GET',
+                headers: {
+                    'Accept': 'application/vnd.github.v3+json',
+                }
+            });
+            if (!response.ok) {
+                throw new Error(`Error fetching data: ${response.status} - ${response.statusText}`);
+            }
+            const commits = await response.json();
+            if (commits && commits.length > 0) {
+                const lastCommitDate = new Date(commits[0].commit.committer.date);
+               
+                // Displaying the time on load
+                document.getElementById('last-updated').innerText = `Last Modified Time: ${lastCommitDate.toLocaleString()}`;
+            } else {
+                document.getElementById('last-updated').innerText = 'No commits found in the repository.';
+            }
+        } catch (error) {
+            console.error('Error fetching the last updated time:', error);
+            document.getElementById('last-updated').innerText = 'Error fetching update time. Please check the repository details.';
+        }
+    }
+    // Function to verify the last update time by re-fetching it from the API
+    async function verifyLastUpdatedTime() {
+        document.getElementById('last-updated').innerText = 'Verifying...';
+        await getLastUpdatedTime();
+        alert("Last modified time has been successfully verified from GitHub API.");
+    }
+    // Initial load to display the time on page load
+    window.onload = getLastUpdatedTime;
+</script>
+
+
+ <!-- //////////////////////////////////////////////////////////////////////////////// -->
+  <!-- ////////////////////////////// Word count function ////////////////////////////// -->
+  <!-- //////////////////////////////////////////////////////////////////////////////// -->
+<!-- Placeholder for total word count -->
+<p id="totalWordCount"></p>
+<hr>
+<script>
+  // Function to calculate and display word count for a specified section
+  function displayWordCount(sectionId, outputId) {
+    // Get the text content from the specified section
+    const text = document.getElementById(sectionId).textContent;
+    // Split text into words based on spaces and filter out any empty strings
+    const wordArray = text.trim().split(/\s+/);
+    // Count the words
+    const wordCount = wordArray.length;
+    // Return the word count for summing purposes
+    return wordCount;
+  }
+  // Function to calculate and display total word count from selected sections
+  function displayTotalWordCount() {
+    // Calculate word count for each section and accumulate the total
+    const IntroductionCount = displayWordCount("Introduction_InText");
+    const AnalysisCount = displayWordCount("Analysis_InText");
+    // Calculate the sum of all selected sections
+    const totalWordCount = IntroductionCount + AnalysisCount;
+    // Display the total word count
+    document.getElementById("totalWordCount").innerText = `Total word count: ${totalWordCount}`;
+  }
+  // Run the function for specific sections and display total count when the page loads
+  window.onload = displayTotalWordCount;
+</script>
+
+
+</div>
+
+<p id="Analysis_InText" style="font-size:0.1px ; color:#becbd2">
+
+Computer simulation has many uses in the vehicular industry today, including modelling vehicles physically to reduce on costs, simulating and preventing car crashes, and even for entertainment purposes in video games. The shipping industry has used computer simulation to enhance the efficiency of transportation of cargo and passengers, keeping major companies around the world sustainable and making ship operations still viable around the world today. “The shipping industry has been facing a number of challenges due to the unprecedented rise of fuel prices, the increasing international concern and released regulations for limiting ship emissions and their impact on the environment as well as the reduction of charter rates.”  Reproducing engines digitally has been used to combat the inefficiencies in marine four stroke diesel engines. The main inefficiencies are incomplete combustion and heat loss, and while waste heat recovery systems are already in use, prototyping a better engine is expensive due to manufacturing processes and material cost. MATLAB and SIMULINK has been used to physically model these marine engines which gives better insight on how they work, as taking data from a real engine is hard without influencing the actual engines performance. Both MVEN (Cycle mean value engine models) and 0-D (zero-dimensional models) have advantages and disadvantages: “Both MVEMs and 0-D models offer specific trade-offs in terms of accuracy, computational time, and required input/provided output.”. Combining these however, reduces these inaccuracies and allows for a model to give a more useful analysis on an engine. This combined MV-0D model allows for a better balance between accuracy and modelling time, which allows this to accurately give data on an engine’s performance, even in different conditions or by tweaking the parameters to create a theoretically better engine. Using MATLAB and SIMULINK to combine these techniques allows for shipping companies to test their engines in a much more cost-effective way, which will help them improve their engines in the future and maintain the sustainability and efficiency of ship operations around the world today.
+Furthermore, specific software like CrashLab has been developed by automotive manufacturers to allow for impact testing and analysis of car crashes, which provides useful data in the design of crumple zones for cars. “Commentators suggest that the pressure exerted by the current economic crisis, in combination with an already popular belief in the effectiveness of math-based simulation analyses for reducing engineering costs, will encourage American automakers to strengthen their commitments to purchasing and using simulation technologies.” Using this approach on car manufacturing greatly reduces the cost of the prototyping stage for a car, as the car can be tested digitally instead of having to create a new car at each stage of testing. “The development phase is a succession of digital loops, called design analysis loops, terminating in milestones” . This also allows the crumple zone to be fine-tuned to a much greater extent, to provide the best trade-off between effectiveness, size and weight. After this, the car can be produced and tested at the end of the design process to make sure the simulation is accurate to real life. Products like AirShaper show the aerodynamics of a car using fluid simulation, which allows for greater freedom in the design stage of a car. Instead of wasting precious time and resources to test out the aerodynamics of a car or relying on previous cars to iterate on a design, the user of the software can create a digital environment to accurately test all of their designs and make simple tweaks quickly and easily before settling on their best one. Both CrashLab and AirShaper are immensely important to the automotive industry, as new developments allow the industry to evolve without much cost.
+
+Simulation of existing cars in a computer-generated environment is used by many video games to create engaging experiences for many players around the world today. Many successful franchises have been built over the years which aim to bring players the ability to race without any risk, and with little expense. Games like Gran Turismo, Outrun, or more recently Assetto Corsa, Forza Horizon 5, or Gran Turismo 7, have had a lot of success and host a massive player base which enjoy spending time racing as a hobby, or to relax. While these videogames can be enjoyed recreationally, they can also be used by professional drivers and racers: “Video games have played a significant role in developing realistic driving simulators using virtual reality. This has led to authentic experiences replicating real-world driving scenarios, where racing drivers can develop their skills or learn racetracks virtually.”. Special units have also been created to simulate driving as accurately as possible, while eliminating any actual danger to the user, which allows new and experienced drivers to train and learn new skills while driving. Video games also have the possibility of analysing the risks while driving, as drivers can be studied under different environments to test what will cause a car crash. The video game Gran Turismo has been used to assess drivers’ gaze while driving, to view where the subjects paid most attention. This was done to see what areas could possibly distract someone while driving and give greater insight into a drivers thought process to create safer roads and testing standards for the future. “In laboratory studies automotive simulators are used to offer several advantages such as low cost, easy data collection, maximum safety for test participants and multiple possibilities of experiments under controlled conditions.”  The use of simulation of vehicles is important in creating repeatable tests, while also saving money and allowing a lot more readings to be taken without extensive measuring instruments, for example the drivers inputs while steering, changing gears, and braking.
+In conclusion, the use of computers has been extremely important to the vehicular industry today, allowing for the extensive testing of vehicles while reducing time and resources spent, and also developing new markets, like recreational use in video games, while also training new drivers and assessing risks on the road in a controlled environment.
+
+<p>
 
 
 
 
 
 
+</body>
 
 
+</html>
